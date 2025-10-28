@@ -1,10 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Redirecting to Viber...</title>
-    <meta http-equiv="refresh" content="0; url=viber://chat?number=%2B380678807700" />
-  </head>
-  <body>
-    <p>Перенаправляємо вас в Viber...</p>
-  </body>
+    <meta charset="UTF-8">
+    <script>
+        function redirectToViber() {
+            // 1. Получаем всю строку параметров из URL (часть после '?')
+            const queryString = window.location.search;
+            
+            // 2. Создаем объект для удобной работы с параметрами
+            const urlParams = new URLSearchParams(queryString);
+
+            // 3. Ищем параметр, который мы назовем 'number'
+            // (например, ...viber.html?number=%2B380678807700)
+            const numberParam = urlParams.get('number');
+
+            // 4. Проверяем, был ли номер передан в ссылке
+            if (numberParam) {
+                // Если да, строим ссылку Viber и перенаправляем пользователя
+                const viberUrl = 'viber://chat?number=' + numberParam;
+                window.location.href = viberUrl;
+            } else {
+                // Если параметр 'number' не найден, выводим сообщение об ошибке
+                document.body.innerHTML = '<p>Помилка: номер не вказано в посиланні.</p>';
+            }
+        }
+    </script>
+</head>
+<body onload="redirectToViber()">
+    <p>Перенаправляємо вас в Viber... Будь ласка, зачекайте.</p>
+</body>
 </html>
